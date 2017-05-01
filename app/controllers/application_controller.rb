@@ -5,6 +5,6 @@ class ApplicationController < ActionController::API
   def detect
     tokens = Linguist::Tokenizer.tokenize(params[:code])
     languages = Linguist::Classifier.classify($db, tokens)
-    render json: {language: languages}
+    render json: {language: languages.first[0]}
   end
 end
