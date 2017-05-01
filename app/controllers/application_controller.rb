@@ -3,10 +3,8 @@ require 'linguist'
 
 class ApplicationController < ActionController::API
   def detect
-    db = {}
-    Linguist::Classifier.train!(db, 'Ruby', 'def hello puts "hello world" end')
-    tokens = Linguist::Tokenizer.tokenize('def hello puts "hello world" end')
-    language = Linguist::Classifier.classify(db, tokens)
-    render json: {language: language}
+    tokens = Linguist::Tokenizer.tokenize('function hello {console.log("hello");}')
+    languages = Linguist::Classifier.classify($db, tokens)
+    render json: {language: languages}
   end
 end
